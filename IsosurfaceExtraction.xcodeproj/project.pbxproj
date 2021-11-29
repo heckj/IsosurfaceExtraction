@@ -25,8 +25,8 @@
 		1A445F6B27559AA900561348 /* MarchingCubes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarchingCubes.swift; sourceTree = "<group>"; };
 		1A445F6C27559AA900561348 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		1A445F6F27559ACB00561348 /* MarchingCubes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = MarchingCubes.js; sourceTree = "<group>"; };
-		1A445F7127559AEC00561348 /* MarchingCubes.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = MarchingCubes.py; sourceTree = "<group>"; };
-		1A445F7327559BB600561348 /* Settings.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Settings.py; sourceTree = "<group>"; };
+		1A445F7127559AEC00561348 /* marchingcubes.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = marchingcubes.py; sourceTree = "<group>"; };
+		1A445F7327559BB600561348 /* settings.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = settings.py; sourceTree = "<group>"; };
 		1A445F7527559BDD00561348 /* utils_3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utils_3d.py; sourceTree = "<group>"; };
 		1A7981F627559CDB00D9484D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1A7981F727559D8200D9484D /* IsosurfaceExtraction-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IsosurfaceExtraction-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -72,9 +72,9 @@
 				1A7981F827559D8200D9484D /* Polygonise.h */,
 				1A7981F927559D8200D9484D /* Polygonise.c */,
 				1A445F6F27559ACB00561348 /* MarchingCubes.js */,
-				1A445F7127559AEC00561348 /* MarchingCubes.py */,
+				1A445F7127559AEC00561348 /* marchingcubes.py */,
 				1A445F7527559BDD00561348 /* utils_3d.py */,
-				1A445F7327559BB600561348 /* Settings.py */,
+				1A445F7327559BB600561348 /* settings.py */,
 				1A445F6127559A8D00561348 /* Assets.xcassets */,
 				1A445F6327559A8D00561348 /* Preview Content */,
 				1A7981F727559D8200D9484D /* IsosurfaceExtraction-Bridging-Header.h */,

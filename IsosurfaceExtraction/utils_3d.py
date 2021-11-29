@@ -1,9 +1,7 @@
 //
 //  utils_3d.py
-//  IsosurfaceExtraction
-//
-
 // Sourced from https://github.com/BorisTheBrave/mc-dc/blob/master/utils_3d.py
+
 """Contains utilities common to 3d meshing methods"""
 
 import math
