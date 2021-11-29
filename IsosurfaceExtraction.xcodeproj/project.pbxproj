@@ -11,6 +11,8 @@
 		1A445F6027559A8C00561348 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F5F27559A8C00561348 /* ContentView.swift */; };
 		1A445F6227559A8D00561348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6127559A8D00561348 /* Assets.xcassets */; };
 		1A445F6527559A8D00561348 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6427559A8D00561348 /* Preview Assets.xcassets */; };
+		1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6B27559AA900561348 /* MarchingCubes.swift */; };
+		1A445F6E27559AA900561348 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6C27559AA900561348 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,12 @@
 		1A445F5F27559A8C00561348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1A445F6127559A8D00561348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A445F6427559A8D00561348 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1A445F6B27559AA900561348 /* MarchingCubes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarchingCubes.swift; sourceTree = "<group>"; };
+		1A445F6C27559AA900561348 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1A445F6F27559ACB00561348 /* MarchingCubes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = MarchingCubes.js; sourceTree = "<group>"; };
+		1A445F7127559AEC00561348 /* MarchingCubes.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = MarchingCubes.py; sourceTree = "<group>"; };
+		1A445F7327559BB600561348 /* Settings.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Settings.py; sourceTree = "<group>"; };
+		1A445F7527559BDD00561348 /* utils_3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utils_3d.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,12 @@
 			children = (
 				1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */,
 				1A445F5F27559A8C00561348 /* ContentView.swift */,
+				1A445F6C27559AA900561348 /* Helpers.swift */,
+				1A445F6B27559AA900561348 /* MarchingCubes.swift */,
+				1A445F6F27559ACB00561348 /* MarchingCubes.js */,
+				1A445F7127559AEC00561348 /* MarchingCubes.py */,
+				1A445F7527559BDD00561348 /* utils_3d.py */,
+				1A445F7327559BB600561348 /* Settings.py */,
 				1A445F6127559A8D00561348 /* Assets.xcassets */,
 				1A445F6327559A8D00561348 /* Preview Content */,
 			);
@@ -138,7 +152,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A445F6027559A8C00561348 /* ContentView.swift in Sources */,
+				1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */,
 				1A445F5E27559A8C00561348 /* IsosurfaceExtractionApp.swift in Sources */,
+				1A445F6E27559AA900561348 /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
