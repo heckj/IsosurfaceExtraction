@@ -13,6 +13,7 @@
 		1A445F6527559A8D00561348 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6427559A8D00561348 /* Preview Assets.xcassets */; };
 		1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6B27559AA900561348 /* MarchingCubes.swift */; };
 		1A445F6E27559AA900561348 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6C27559AA900561348 /* Helpers.swift */; };
+		1A7981FA27559D8200D9484D /* Polygonise.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7981F927559D8200D9484D /* Polygonise.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,10 @@
 		1A445F7127559AEC00561348 /* MarchingCubes.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = MarchingCubes.py; sourceTree = "<group>"; };
 		1A445F7327559BB600561348 /* Settings.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = Settings.py; sourceTree = "<group>"; };
 		1A445F7527559BDD00561348 /* utils_3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utils_3d.py; sourceTree = "<group>"; };
+		1A7981F627559CDB00D9484D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		1A7981F727559D8200D9484D /* IsosurfaceExtraction-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IsosurfaceExtraction-Bridging-Header.h"; sourceTree = "<group>"; };
+		1A7981F827559D8200D9484D /* Polygonise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polygonise.h; sourceTree = "<group>"; };
+		1A7981F927559D8200D9484D /* Polygonise.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Polygonise.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +48,7 @@
 		1A445F5127559A8C00561348 = {
 			isa = PBXGroup;
 			children = (
+				1A7981F627559CDB00D9484D /* README.md */,
 				1A445F5C27559A8C00561348 /* IsosurfaceExtraction */,
 				1A445F5B27559A8C00561348 /* Products */,
 			);
@@ -63,12 +69,15 @@
 				1A445F5F27559A8C00561348 /* ContentView.swift */,
 				1A445F6C27559AA900561348 /* Helpers.swift */,
 				1A445F6B27559AA900561348 /* MarchingCubes.swift */,
+				1A7981F827559D8200D9484D /* Polygonise.h */,
+				1A7981F927559D8200D9484D /* Polygonise.c */,
 				1A445F6F27559ACB00561348 /* MarchingCubes.js */,
 				1A445F7127559AEC00561348 /* MarchingCubes.py */,
 				1A445F7527559BDD00561348 /* utils_3d.py */,
 				1A445F7327559BB600561348 /* Settings.py */,
 				1A445F6127559A8D00561348 /* Assets.xcassets */,
 				1A445F6327559A8D00561348 /* Preview Content */,
+				1A7981F727559D8200D9484D /* IsosurfaceExtraction-Bridging-Header.h */,
 			);
 			path = IsosurfaceExtraction;
 			sourceTree = "<group>";
@@ -113,6 +122,7 @@
 				TargetAttributes = {
 					1A445F5927559A8C00561348 = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -152,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A445F6027559A8C00561348 /* ContentView.swift in Sources */,
+				1A7981FA27559D8200D9484D /* Polygonise.c in Sources */,
 				1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */,
 				1A445F5E27559A8C00561348 /* IsosurfaceExtractionApp.swift in Sources */,
 				1A445F6E27559AA900561348 /* Helpers.swift in Sources */,
@@ -282,6 +293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IsosurfaceExtraction/Preview Content\"";
@@ -301,6 +313,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhonabwy.IsosurfaceExtraction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IsosurfaceExtraction/IsosurfaceExtraction-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -311,6 +325,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IsosurfaceExtraction/Preview Content\"";
@@ -330,6 +345,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rhonabwy.IsosurfaceExtraction;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "IsosurfaceExtraction/IsosurfaceExtraction-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
