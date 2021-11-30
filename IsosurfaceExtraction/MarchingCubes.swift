@@ -308,9 +308,9 @@ let triTable:[[Int]] = [
     [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 ]
 struct Triangle {
-    // array of 3 things
+    // array of 3 vertex
 }
 struct GridCell {
-    // array of 8 things
+    // array of 8 vertex
     // array of 8 Double values
 }

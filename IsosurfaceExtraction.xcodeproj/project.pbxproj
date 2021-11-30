@@ -16,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1A0A190A2756E9BC0051A4A7 /* Euclid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Euclid; path = ../Euclid; sourceTree = "<group>"; };
 		1A445F5A27559A8C00561348 /* IsosurfaceExtraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsosurfaceExtraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsosurfaceExtractionApp.swift; sourceTree = "<group>"; };
 		1A445F5F27559A8C00561348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,9 +44,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A0A19092756E9BC0051A4A7 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				1A0A190A2756E9BC0051A4A7 /* Euclid */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		1A445F5127559A8C00561348 = {
 			isa = PBXGroup;
 			children = (
+				1A0A19092756E9BC0051A4A7 /* Packages */,
 				1A7981F627559CDB00D9484D /* README.md */,
 				1A445F5C27559A8C00561348 /* IsosurfaceExtraction */,
 				1A445F5B27559A8C00561348 /* Products */,
@@ -103,6 +113,8 @@
 			dependencies = (
 			);
 			name = IsosurfaceExtraction;
+			packageProductDependencies = (
+			);
 			productName = IsosurfaceExtraction;
 			productReference = 1A445F5A27559A8C00561348 /* IsosurfaceExtraction.app */;
 			productType = "com.apple.product-type.application";
@@ -132,6 +144,8 @@
 				Base,
 			);
 			mainGroup = 1A445F5127559A8C00561348;
+			packageReferences = (
+			);
 			productRefGroup = 1A445F5B27559A8C00561348 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
