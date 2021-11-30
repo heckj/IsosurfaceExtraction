@@ -1,5 +1,19 @@
 import Foundation
 
+/// Linear Interpolation of Double values.
+///
+/// Precise method, which guarantees v = v1 when t = 1. This method is monotonic only when `v0 * v1 < 0`.
+/// Linear interpolation between same values might not produce the same value.
+/// Sourced from https://en.wikipedia.org/wiki/Linear_interpolation.
+/// - Parameters:
+///   - v0: The first boundary value for the interpolation.
+///   - v1: The second boundary value for the interpolation.
+///   - t: A value between `0` and `1.0` to use to produce an interpolated value.
+/// - Returns: The interpolated value at the position provided between two boundary values.
+public func lerp(input0 v0: Double, input1 v1: Double, parameter t: Double) -> Double {
+    return (1 - t) * v0 + t * v1
+}
+
 let edgeTable:[UInt] = [
     0x0  , 0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c,
     0x80c, 0x905, 0xa0f, 0xb06, 0xc0a, 0xd03, 0xe09, 0xf00,

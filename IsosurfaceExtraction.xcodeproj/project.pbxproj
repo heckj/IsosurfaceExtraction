@@ -12,7 +12,6 @@
 		1A445F6227559A8D00561348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6127559A8D00561348 /* Assets.xcassets */; };
 		1A445F6527559A8D00561348 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6427559A8D00561348 /* Preview Assets.xcassets */; };
 		1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6B27559AA900561348 /* MarchingCubes.swift */; };
-		1A445F6E27559AA900561348 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6C27559AA900561348 /* Helpers.swift */; };
 		1A7981FA27559D8200D9484D /* Polygonise.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7981F927559D8200D9484D /* Polygonise.c */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +22,6 @@
 		1A445F6127559A8D00561348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A445F6427559A8D00561348 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1A445F6B27559AA900561348 /* MarchingCubes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarchingCubes.swift; sourceTree = "<group>"; };
-		1A445F6C27559AA900561348 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		1A445F6F27559ACB00561348 /* MarchingCubes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = MarchingCubes.js; sourceTree = "<group>"; };
 		1A445F7127559AEC00561348 /* marchingcubes.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = marchingcubes.py; sourceTree = "<group>"; };
 		1A445F7327559BB600561348 /* settings.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = settings.py; sourceTree = "<group>"; };
@@ -67,7 +65,6 @@
 			children = (
 				1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */,
 				1A445F5F27559A8C00561348 /* ContentView.swift */,
-				1A445F6C27559AA900561348 /* Helpers.swift */,
 				1A445F6B27559AA900561348 /* MarchingCubes.swift */,
 				1A7981F827559D8200D9484D /* Polygonise.h */,
 				1A7981F927559D8200D9484D /* Polygonise.c */,
@@ -165,7 +162,6 @@
 				1A7981FA27559D8200D9484D /* Polygonise.c in Sources */,
 				1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */,
 				1A445F5E27559A8C00561348 /* IsosurfaceExtractionApp.swift in Sources */,
-				1A445F6E27559AA900561348 /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

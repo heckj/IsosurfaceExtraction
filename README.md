@@ -1,10 +1,10 @@
-# IsosurfaceExtraction
+# Isosurface Extraction
 
 Implementations and examples of Isosurface Extraction algorithms (marching cubes, surface nets, dual contouring)
 
 Some of the files included in this project are copies of public implementations of these algorithms, and are under their own licenses.
 
-# Marching Cubes
+## Marching Cubes
 
 Paul Bourke's original document: [Polygonising a scalaar field](http://paulbourke.net/geometry/polygonise/) is a fantastic explanation. 
 I also found Boris the Brave's [Marching Cubes Tutorial](https://www.boristhebrave.com/2018/04/15/marching-cubes-tutorial/) to be a very accessible version.
