@@ -11,7 +11,7 @@ import SwiftUI
 struct IsosurfaceExtractionApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(scene: provideEuclidScene())
         }
     }
 }

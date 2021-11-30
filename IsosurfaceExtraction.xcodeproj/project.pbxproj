@@ -13,10 +13,10 @@
 		1A445F6527559A8D00561348 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6427559A8D00561348 /* Preview Assets.xcassets */; };
 		1A445F6D27559AA900561348 /* MarchingCubes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F6B27559AA900561348 /* MarchingCubes.swift */; };
 		1A7981FA27559D8200D9484D /* Polygonise.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A7981F927559D8200D9484D /* Polygonise.c */; };
+		1ABA92D82756EE8000A9B502 /* Euclid in Frameworks */ = {isa = PBXBuildFile; productRef = 1ABA92D72756EE8000A9B502 /* Euclid */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1A0A190A2756E9BC0051A4A7 /* Euclid */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Euclid; path = ../Euclid; sourceTree = "<group>"; };
 		1A445F5A27559A8C00561348 /* IsosurfaceExtraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsosurfaceExtraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsosurfaceExtractionApp.swift; sourceTree = "<group>"; };
 		1A445F5F27559A8C00561348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -38,24 +38,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1ABA92D82756EE8000A9B502 /* Euclid in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A0A19092756E9BC0051A4A7 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				1A0A190A2756E9BC0051A4A7 /* Euclid */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		1A445F5127559A8C00561348 = {
 			isa = PBXGroup;
 			children = (
-				1A0A19092756E9BC0051A4A7 /* Packages */,
 				1A7981F627559CDB00D9484D /* README.md */,
 				1A445F5C27559A8C00561348 /* IsosurfaceExtraction */,
 				1A445F5B27559A8C00561348 /* Products */,
@@ -114,6 +106,7 @@
 			);
 			name = IsosurfaceExtraction;
 			packageProductDependencies = (
+				1ABA92D72756EE8000A9B502 /* Euclid */,
 			);
 			productName = IsosurfaceExtraction;
 			productReference = 1A445F5A27559A8C00561348 /* IsosurfaceExtraction.app */;
@@ -145,6 +138,7 @@
 			);
 			mainGroup = 1A445F5127559A8C00561348;
 			packageReferences = (
+				1ABA92D62756EE8000A9B502 /* XCRemoteSwiftPackageReference "Euclid" */,
 			);
 			productRefGroup = 1A445F5B27559A8C00561348 /* Products */;
 			projectDirPath = "";
@@ -383,6 +377,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1ABA92D62756EE8000A9B502 /* XCRemoteSwiftPackageReference "Euclid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicklockwood/Euclid.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1ABA92D72756EE8000A9B502 /* Euclid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1ABA92D62756EE8000A9B502 /* XCRemoteSwiftPackageReference "Euclid" */;
+			productName = Euclid;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A445F5227559A8C00561348 /* Project object */;
 }
