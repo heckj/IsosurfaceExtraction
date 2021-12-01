@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1A11F2275819DA004DB8C4 /* IsosurfaceExtractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A11F1275819DA004DB8C4 /* IsosurfaceExtractionTests.swift */; };
 		1A445F5E27559A8C00561348 /* IsosurfaceExtractionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */; };
 		1A445F6027559A8C00561348 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A445F5F27559A8C00561348 /* ContentView.swift */; };
 		1A445F6227559A8D00561348 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A445F6127559A8D00561348 /* Assets.xcassets */; };
@@ -16,7 +17,19 @@
 		1ABA92D82756EE8000A9B502 /* Euclid in Frameworks */ = {isa = PBXBuildFile; productRef = 1ABA92D72756EE8000A9B502 /* Euclid */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1A1A11F3275819DA004DB8C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A445F5227559A8C00561348 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A445F5927559A8C00561348;
+			remoteInfo = IsosurfaceExtraction;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1A1A11EF275819DA004DB8C4 /* IsosurfaceExtractionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IsosurfaceExtractionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1A11F1275819DA004DB8C4 /* IsosurfaceExtractionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsosurfaceExtractionTests.swift; sourceTree = "<group>"; };
 		1A445F5A27559A8C00561348 /* IsosurfaceExtraction.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IsosurfaceExtraction.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsosurfaceExtractionApp.swift; sourceTree = "<group>"; };
 		1A445F5F27559A8C00561348 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,6 +47,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1A1A11EC275819DA004DB8C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A445F5727559A8C00561348 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,11 +65,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A1A11F0275819DA004DB8C4 /* IsosurfaceExtractionTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A11F1275819DA004DB8C4 /* IsosurfaceExtractionTests.swift */,
+			);
+			path = IsosurfaceExtractionTests;
+			sourceTree = "<group>";
+		};
 		1A445F5127559A8C00561348 = {
 			isa = PBXGroup;
 			children = (
 				1A7981F627559CDB00D9484D /* README.md */,
 				1A445F5C27559A8C00561348 /* IsosurfaceExtraction */,
+				1A1A11F0275819DA004DB8C4 /* IsosurfaceExtractionTests */,
 				1A445F5B27559A8C00561348 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				1A445F5A27559A8C00561348 /* IsosurfaceExtraction.app */,
+				1A1A11EF275819DA004DB8C4 /* IsosurfaceExtractionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +122,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1A1A11EE275819DA004DB8C4 /* IsosurfaceExtractionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1A11F7275819DA004DB8C4 /* Build configuration list for PBXNativeTarget "IsosurfaceExtractionTests" */;
+			buildPhases = (
+				1A1A11EB275819DA004DB8C4 /* Sources */,
+				1A1A11EC275819DA004DB8C4 /* Frameworks */,
+				1A1A11ED275819DA004DB8C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A1A11F4275819DA004DB8C4 /* PBXTargetDependency */,
+			);
+			name = IsosurfaceExtractionTests;
+			productName = IsosurfaceExtractionTests;
+			productReference = 1A1A11EF275819DA004DB8C4 /* IsosurfaceExtractionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1A445F5927559A8C00561348 /* IsosurfaceExtraction */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A445F6827559A8D00561348 /* Build configuration list for PBXNativeTarget "IsosurfaceExtraction" */;
@@ -122,6 +170,10 @@
 				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1310;
 				TargetAttributes = {
+					1A1A11EE275819DA004DB8C4 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 1A445F5927559A8C00561348;
+					};
 					1A445F5927559A8C00561348 = {
 						CreatedOnToolsVersion = 13.1;
 						LastSwiftMigration = 1310;
@@ -145,11 +197,19 @@
 			projectRoot = "";
 			targets = (
 				1A445F5927559A8C00561348 /* IsosurfaceExtraction */,
+				1A1A11EE275819DA004DB8C4 /* IsosurfaceExtractionTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1A1A11ED275819DA004DB8C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A445F5827559A8C00561348 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,6 +222,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1A1A11EB275819DA004DB8C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1A11F2275819DA004DB8C4 /* IsosurfaceExtractionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A445F5627559A8C00561348 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,7 +243,61 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1A1A11F4275819DA004DB8C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A445F5927559A8C00561348 /* IsosurfaceExtraction */;
+			targetProxy = 1A1A11F3275819DA004DB8C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1A1A11F5275819DA004DB8C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BDV4VC27D3;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhonabwy.IsosurfaceExtractionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IsosurfaceExtraction.app/IsosurfaceExtraction";
+			};
+			name = Debug;
+		};
+		1A1A11F6275819DA004DB8C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BDV4VC27D3;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rhonabwy.IsosurfaceExtractionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IsosurfaceExtraction.app/IsosurfaceExtraction";
+			};
+			name = Release;
+		};
 		1A445F6627559A8D00561348 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -358,6 +480,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1A1A11F7275819DA004DB8C4 /* Build configuration list for PBXNativeTarget "IsosurfaceExtractionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1A11F5275819DA004DB8C4 /* Debug */,
+				1A1A11F6275819DA004DB8C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1A445F5527559A8C00561348 /* Build configuration list for PBXProject "IsosurfaceExtraction" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

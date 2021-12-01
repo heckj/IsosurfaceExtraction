@@ -1,4 +1,5 @@
 import Foundation
+import Euclid
 
 /// Linear Interpolation of Double values.
 ///
@@ -14,7 +15,13 @@ public func lerp(input0 v0: Double, input1 v1: Double, parameter t: Double) -> D
     return (1 - t) * v0 + t * v1
 }
 
-let sample:[[[Double]]] = [
+struct exampleData: IsoSurfaceDataSource {
+    func isovalue(x: Double, y: Double, z: Double) -> Double {
+        return sample[Int(x)][Int(y)][Int(z)]
+    }
+    
+    
+    private let sample:[[[Double]]] = [
     [
         [0.0], [0.0], [0.0], [0.0], [0.0],
         [0.0], [0.0], [0.0], [0.0], [0.0],
@@ -51,6 +58,7 @@ let sample:[[[Double]]] = [
         [0.0], [0.0], [0.0], [0.0], [0.0]
     ],
 ]
+}
 
 let edgeTable:[UInt] = [
     0x0  , 0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c,
@@ -352,3 +360,126 @@ struct GridCell {
     // array of 8 vertex
     // array of 8 Double values
 }
+
+// Vertex <- 3d point in space, with maybe additional details (like normal, or UV coordinates)
+// Vector <- a 3D vector
+// Polygon <-- creating many of these
+// Mesh <- generate geometry through this
+
+/// A protocol that provides a consistent interface to retrieve density values for isosurface extraction.
+public protocol IsoSurfaceDataSource {
+    func isovalue(x: Double, y: Double, z:Double) -> Double;
+}
+
+public func marching_cubes(data: IsoSurfaceDataSource,
+                           xRange: ClosedRange<Double> = 0...5,
+                           yRange: ClosedRange<Double> = 0...5,
+                           zRange: ClosedRange<Double> = 0...5,
+                           resolution: Double = 1.0) {
+    
+    for x in stride(from: xRange.lowerBound, through: xRange.upperBound, by: resolution) {
+        for y in stride(from: yRange.lowerBound, through: yRange.upperBound, by: resolution) {
+            for z in stride(from: zRange.lowerBound, through: zRange.upperBound, by: resolution) {
+                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z)
+                print("polys: \(cell_mesh.polygons.count) in \(cell_mesh.bounds.summary), watertight? \(check(cell_mesh.isWatertight))")
+                
+                // merge meshes together to generate a final geometry for the space processed
+            }
+        }
+    }
+    
+}
+
+/// Converts a boolean value into a checkmark or cross-out symbol for a compact text representation.
+/// - Parameter value: the value to be compared
+/// - Returns: a string with a value of ✔ if true; otherwise ✗
+public func check(_ value: Bool) -> String {
+    value ? "✔" : "✗"
+}
+
+extension Euclid.Bounds {
+    
+    /// Returns a summary description of the bounds in textual form.
+    ///
+    /// For example, a default Bounds instance has infinite bounds:
+    /// ```
+    /// let example = Bounds()
+    /// bounds.summary
+    /// // X[inf…-inf], Y[inf…-inf], Y[inf…-inf]
+    /// ```
+    var summary: String {
+        get {
+            return "X[\(self.min.x)…\(self.max.x)], Y[\(self.min.y)…\(self.max.y)], Y[\(self.min.z)…\(self.max.z)]"
+        }
+    }
+}
+/// Generates the data for a 3D mesh representation for a single voxel.
+/// - Parameters:
+///   - data: The data source that provides the density value at a given 3D location.
+///   - x: The x coordinate of the voxel to render.
+///   - y: The y coordinate of the voxel to render.
+///   - z: The z coordinate of the voxel to render.
+func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double) -> Mesh {
+    return Mesh([])
+}
+
+// Python impl
+//def marching_cubes_3d_single_cell(f, x, y, z):
+//    # Create an array of 8 values to represent the vertices of the cube
+//    f_eval = [None] * 8
+//    for v in range(8):
+//        v_pos = VERTICES[v]
+//        # Evaluate f on each vertex of the 8 vertices of the cube
+//        f_eval[v] = f(x + v_pos[0], y + v_pos[1], z + v_pos[2])
+//    # Determine which case we are
+//    case = sum(2**v for v in range(8) if f_eval[v] > 0)
+//    # Ok, what faces do we need (in terms of edges)
+//    faces = cases[case]
+//
+//    def edge_to_boundary_vertex(edge):
+//        """Returns the vertex in the middle of the specified edge"""
+//        # Find the two vertices specified by this edge, and interpolate between
+//        # them according to adapt, as in the 2d case
+//        v0, v1 = EDGES[edge]
+//        f0 = f_eval[v0]
+//        f1 = f_eval[v1]
+//        t0 = 1 - adapt(f0, f1)
+//        t1 = 1 - t0
+//        vert_pos0 = VERTICES[v0]
+//        vert_pos1 = VERTICES[v1]
+//        return V3(x + vert_pos0[0] * t0 + vert_pos1[0] * t1,
+//                  y + vert_pos0[1] * t0 + vert_pos1[1] * t1,
+//                  z + vert_pos0[2] * t0 + vert_pos1[2] * t1)
+//
+//    output_verts = []
+//    output_tris = []
+//
+//    for face in faces:
+//        # For each face, find the vertices of that face, and output it.
+//        # We make no effort to re-use vertices between multiple faces,
+//        # A fancier implementation might do so.
+//        edges = face
+//        verts = list(map(edge_to_boundary_vertex, edges))
+//        next_vert_index = len(output_verts) + 1
+//        tri = Tri(
+//            next_vert_index,
+//            next_vert_index+1,
+//            next_vert_index+2,
+//        )
+//        output_verts.extend(verts)
+//        output_tris.append(tri)
+//    return Mesh(output_verts, output_tris)
+//
+//
+//def marching_cubes_3d(f, xmin=XMIN, xmax=XMAX, ymin=YMIN, ymax=YMAX, zmin=ZMIN, zmax=ZMAX):
+//    """Iterates over a cells of size one between the specified range, and evaluates f to produce
+//        a boundary by Marching Cubes. Returns a Mesh object."""
+//    # For each cube, evaluate independently.
+//    # If this wasn't demonstration code, you might actually evaluate them together for efficiency
+//    mesh = Mesh()
+//    for x in range(xmin, xmax):
+//        for y in range(ymin, ymax):
+//            for z in range(zmin, zmax):
+//                cell_mesh = marching_cubes_3d_single_cell(f, x, y, z)
+//                mesh.extend(cell_mesh)
+//    return mesh
