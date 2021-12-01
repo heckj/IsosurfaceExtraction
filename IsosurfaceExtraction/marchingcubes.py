@@ -305,10 +305,11 @@ cases = [[],
 
 
 def marching_cubes_3d_single_cell(f, x, y, z):
-    # Evaluate f on each vertex of the cube
+    # Create an array of 8 values to represent the vertices of the cube
     f_eval = [None] * 8
     for v in range(8):
         v_pos = VERTICES[v]
+        # Evaluate f on each vertex of the 8 vertices of the cube
         f_eval[v] = f(x + v_pos[0], y + v_pos[1], z + v_pos[2])
     # Determine which case we are
     case = sum(2**v for v in range(8) if f_eval[v] > 0)
