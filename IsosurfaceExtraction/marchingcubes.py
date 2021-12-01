@@ -368,6 +368,13 @@ def marching_cubes_3d(f, xmin=XMIN, xmax=XMAX, ymin=YMIN, ymax=YMAX, zmin=ZMIN, 
 def circle_function(x, y, z):
     return 2.5 - math.sqrt(x*x + y*y + z*z)
 
+def adapt(v0, v1):
+    """v0 and v1 are numbers of opposite sign. This returns how far you need to interpolate from v0 to v1 to get to 0."""
+    assert (v1 > 0) != (v0 > 0), "v0 and v1 do not have opposite sign"
+    if settings.ADAPTIVE:
+        return (0 - v0) / (v1 - v0)
+    else:
+        return 0.5
 
 def make_circle_obj(filename):
     """Writes an obj file containing a sphere meshed via marching cubes"""

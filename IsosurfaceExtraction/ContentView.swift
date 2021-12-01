@@ -31,6 +31,33 @@ struct ContentView: View {
     }
 }
 
+func provideMarchingCubesScene() -> SCNScene {
+    // create a new scene
+    let scene = SCNScene()
+
+    // create and add a camera to the scene
+    let cameraNode = SCNNode()
+    cameraNode.name = "camera"
+    cameraNode.camera = SCNCamera()
+    scene.rootNode.addChildNode(cameraNode)
+
+    // place the camera
+    cameraNode.position = SCNVector3(x: 0, y: 0, z: 3)
+
+    // create some geometry using Euclid
+    let start = CFAbsoluteTimeGetCurrent()
+    let mesh = marching_cubes(data: IsosurfaceExtraction.exampleData() as IsoSurfaceDataSource)
+    print("Time:", CFAbsoluteTimeGetCurrent() - start)
+    print("Polys:", mesh.polygons.count)
+
+    // create SCNNode
+    let geometry = SCNGeometry(mesh)
+    let node = SCNNode(geometry: geometry)
+    scene.rootNode.addChildNode(node)
+
+    return scene
+}
+
 func provideEuclidScene() -> SCNScene {
     // create a new scene
     let scene = SCNScene()
