@@ -309,27 +309,22 @@ let cases = [[],
  [[3, 0, 8]],
  []]
 
-
-// Vertex <- 3d point in space, with maybe additional details (like normal, or UV coordinates)
-// Vector <- a 3D vector
-// Polygon <-- creating many of these
-// Mesh <- generate geometry through this
-
 /// A protocol that provides a consistent interface to retrieve density values for isosurface extraction.
 public protocol IsoSurfaceDataSource {
     func isovalue(x: Double, y: Double, z:Double) -> Double;
 }
 
 public func marching_cubes(data: IsoSurfaceDataSource,
-                           xRange: ClosedRange<Double> = 0...5,
-                           yRange: ClosedRange<Double> = 0...5,
-                           zRange: ClosedRange<Double> = 0...5,
-                           resolution: Double = 1.0) -> Mesh {
+                           xRange: ClosedRange<Double> = 0...10,
+                           yRange: ClosedRange<Double> = 0...10,
+                           zRange: ClosedRange<Double> = 0...10,
+                           resolution: Double = 1,
+                           material: Polygon.Material) -> Mesh {
     var combined_mesh = Mesh([])
     for x in stride(from: xRange.lowerBound, through: xRange.upperBound, by: resolution) {
         for y in stride(from: yRange.lowerBound, through: yRange.upperBound, by: resolution) {
             for z in stride(from: zRange.lowerBound, through: zRange.upperBound, by: resolution) {
-                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z)
+                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z, material: material)
                 print("cell at \(x),\(y),\(z) : \(cell_mesh.summary)")
                 combined_mesh = combined_mesh.merge(cell_mesh)
             }
@@ -401,7 +396,7 @@ extension Euclid.Vector {
 ///   - x: The x coordinate of the voxel to render.
 ///   - y: The y coordinate of the voxel to render.
 ///   - z: The z coordinate of the voxel to render.
-func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double) -> Mesh {
+func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double, material: Polygon.Material) -> Mesh {
     let threshold = 1.0 // values over the threshold represent the interior of the surface
     
     // iterate through the corners of the voxel, and get the data value from each of those locations.
@@ -444,7 +439,7 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
             return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z)
         }
         print("verts identified by this face: \(verts.map({ $0.summary }))")
-        if let poly = Polygon(verts) {
+        if let poly = Polygon(verts, material: material) {
             print("polygon \(poly.summary)")
             output_tris.append(poly)
         }
@@ -478,19 +473,3 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
                   y + Double(vert_pos0.1) * t0 + Double(vert_pos1.1) * t1,
                   z + Double(vert_pos0.2) * t0 + Double(vert_pos1.2) * t1)
 }
-
-
-//
-//
-//def marching_cubes_3d(f, xmin=XMIN, xmax=XMAX, ymin=YMIN, ymax=YMAX, zmin=ZMIN, zmax=ZMAX):
-//    """Iterates over a cells of size one between the specified range, and evaluates f to produce
-//        a boundary by Marching Cubes. Returns a Mesh object."""
-//    # For each cube, evaluate independently.
-//    # If this wasn't demonstration code, you might actually evaluate them together for efficiency
-//    mesh = Mesh()
-//    for x in range(xmin, xmax):
-//        for y in range(ymin, ymax):
-//            for z in range(zmin, zmax):
-//                cell_mesh = marching_cubes_3d_single_cell(f, x, y, z)
-//                mesh.extend(cell_mesh)
-//    return mesh

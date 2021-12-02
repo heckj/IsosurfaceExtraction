@@ -46,7 +46,7 @@ func provideMarchingCubesScene() -> SCNScene {
 
     // create some geometry using Euclid
     let start = CFAbsoluteTimeGetCurrent()
-    let mesh = marching_cubes(data: IsosurfaceExtraction.exampleData() as IsoSurfaceDataSource)
+    let mesh = marching_cubes(data: IsosurfaceExtraction.exampleData() as IsoSurfaceDataSource, material: UIColor.green)
     print("Time:", CFAbsoluteTimeGetCurrent() - start)
     print("Polys:", mesh.polygons.count)
 
