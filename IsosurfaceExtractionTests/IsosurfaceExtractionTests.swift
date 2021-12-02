@@ -37,18 +37,27 @@ class MarchingCubesTests: XCTestCase {
     func testVoxelEvaluation0_0_0() {
         print(" =============== testVoxelEvaluation 0,0,0")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 0.0, material: UIColor.red, homeworkMode: true)
+        let x = marching_cubes_single_cell(
+            data: sample, x: 0.0, y: 0.0, z: 0.0,
+            material: UIColor.red,
+            adaptive: true,
+            homeworkMode: true)
         XCTAssertEqual(x.polygons.count, 1)
         // print(" = " + x.summary)
         print(" =============== testVoxelEvaluation 0,0,0")
     }
     
     func testVoxelEvaluation0_0_1() {
-        print(" = 0,0,1")
+        print(" =============== testVoxelEvaluation 0,0,1")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 1.0, material: UIColor.red)
+        let x = marching_cubes_single_cell(
+            data: sample, x: 0.0, y: 0.0, z: 1.0,
+            material: UIColor.red,
+            adaptive: true,
+            homeworkMode: true)
         XCTAssertEqual(x.polygons.count, 3)
-        print(" = " + x.summary)
+        //print(" = " + x.summary)
+        print(" =============== testVoxelEvaluation 0,0,1")
 //        = 0,0,1
 //       [1.5, 1.0857864376269049, 0.7679491924311228, 1.0857864376269049, 0.5, 0.2639320225002102, 0.05051025721682212, 0.2639320225002102]
 //       ["✔", "✔", "✗", "✔", "✗", "✗", "✗", "✗"]
@@ -63,11 +72,15 @@ class MarchingCubesTests: XCTestCase {
 
     }
     func testVoxelEvaluation0_0_2() {
-        print(" = 0,0,2")
+        print(" =============== testVoxelEvaluation 0,0,2")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 2.0, material: UIColor.red)
+        let x = marching_cubes_single_cell(
+            data: sample, x: 0.0, y: 0.0, z: 2.0,
+            material: UIColor.red,
+            adaptive: true,
+            homeworkMode: true)
         XCTAssertEqual(x.polygons.count, 0)
-        print(" = " + x.summary)
+        print(" =============== testVoxelEvaluation 0,0,2")
 //        = 0,0,2
 //       [0.5, 0.2639320225002102, 0.05051025721682212, 0.2639320225002102, -0.5, -0.6622776601683795, -0.8166247903553998, -0.6622776601683795]
 //       ["✗", "✗", "✗", "✗", "✗", "✗", "✗", "✗"]

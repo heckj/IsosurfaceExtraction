@@ -320,12 +320,12 @@ public func marching_cubes(data: IsoSurfaceDataSource,
                            yRange: ClosedRange<Double> = -3...3,
                            zRange: ClosedRange<Double> = -3...3,
                            resolution: Double = 1,
-                           material: Polygon.Material) -> Mesh {
+                           material: Polygon.Material, adaptive: Bool = false) -> Mesh {
     var combined_mesh = Mesh([])
     for x in stride(from: xRange.lowerBound, through: xRange.upperBound, by: resolution) {
         for y in stride(from: yRange.lowerBound, through: yRange.upperBound, by: resolution) {
             for z in stride(from: zRange.lowerBound, through: zRange.upperBound, by: resolution) {
-                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z, material: material)
+                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z, material: material, adaptive: adaptive)
                 print("cell at \(x),\(y),\(z) : \(cell_mesh.summary)")
                 combined_mesh = combined_mesh.merge(cell_mesh)
             }
@@ -400,7 +400,7 @@ extension Euclid.Vector {
 ///   - material: The material to use when rendering the polygon
 ///   - homeworkMode: If true, enables detailed print statements showing the calculations and logic for the choice of locations for the polygon(s).
 /// - Returns: A mesh made up of the polygons for this voxel cell
-func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double, material: Polygon.Material, homeworkMode: Bool = false) -> Mesh {
+func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double, material: Polygon.Material, adaptive: Bool = false, homeworkMode: Bool = false) -> Mesh {
     let threshold = 1.0 // values over the threshold represent the interior of the surface
     
     // iterate through the corners of the voxel, and get the data value from each of those locations.
@@ -409,12 +409,14 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
                       y: y + Double(y_offset),
                       z: z + Double(z_offset))
     }
-    // values at the corners of the voxel
-    print(valuesAtCorners)
-    // threshold evaluation at the corners of the voxel cube
-    print(valuesAtCorners.map({ val in
-        return check(val > threshold)
-    }))
+    if homeworkMode {
+        // values at the corners of the voxel
+        print(valuesAtCorners)
+        // threshold evaluation at the corners of the voxel cube
+        print(valuesAtCorners.map({ val in
+            return check(val > threshold)
+        }))
+    }
     
     // If the value at each corner is greater than the threshold value, then its considered inside
     // the surface we're creating.
@@ -432,19 +434,22 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
     if (valuesAtCorners[7] > threshold) { cubeindex |= 128 }
     
     let faces = cases[cubeindex]
-    print("faces: \(faces)")
-    
+    if homeworkMode {
+        print("faces: \(faces)")
+    }
     var output_tris: [Polygon] = []
     for face in faces {
         // For each face, find the vertices of that face and output it.
         // There's no effort in this algorithm to re-use vertices between the faces.
         let edges = face // ex: [10, 6, 5]
         let verts = edges.map { edgeIndex in
-            return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z, threshold: threshold, adaptive: true, homeworkMode: homeworkMode)
+            return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z, threshold: threshold, adaptive: adaptive, homeworkMode: homeworkMode)
         }
         //        print("verts identified by this face: \(verts.map({ $0.summary }))")
         if let poly = Polygon(verts, material: material) {
-            print("polygon \(poly.summary)")
+            if homeworkMode {
+                print("polygon \(poly.summary)")
+            }
             output_tris.append(poly)
         }
     }
@@ -476,7 +481,7 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
     // In either case, t0 and t1 are the unit-measure offsets
     // for the vertex positions.
     let t0: Double
-    let t1: Double
+//    let t1: Double
     if adaptive {
         if homeworkMode {
             print("Adaptive mode enabled: calculating interpolation")
@@ -491,27 +496,20 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
         // one negative.
         let verifiedOppositeSigns = (f0 > 0) != (f1 > 0)
         precondition(verifiedOppositeSigns, "The isovalues being interpolated (\(f0), and \(f1) aren't opposite signs. The original values from the field are \(cornerValues[v0]) and \(cornerValues[v1]), and the threshold value \(threshold).")
+        t0 = (0 - f0) / (f1 - f0)
         if homeworkMode {
             print("first corner index #\(v0), second corner index #\(v1).")
             print("The isofield values at the corners are \(f0) and \(f1)")
-            print("To calculate the offset from corner #\(v0) to #\(v1):")
+            print("Calculate the unit-offset (t0) from corner #\(v0) to #\(v1):")
             print("calc: ( 0 - \(f0) ) / ( \(f1) - \(f0) )")
-            print(" ->   \(0-f0)  /   \(f1 - f0)")
-        }
-        t0 = (0 - f0) / (f1 - f0)
-        if homeworkMode {
-            print("The unit offset from corner #\(v0) is \(t0).")
-        }
-        t1 = 1 - t0
-        if homeworkMode {
-            print("    which makes the unit offset for corner #\(v1) (1 - t0): \(t1).")
+            print("   -> \(0 - f0) / \(f1 - f0)")
+            print("   -> \(t0)")
         }
     } else {
         if homeworkMode {
             print("Non-adaptive mode enabled: choosing half-way point")
         }
         t0 = 0.5
-        t1 = 0.5
     }
     
     // Using the unit-offset between the two corners, we choose
@@ -523,55 +521,32 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
         print("The offsets for the first corner are \(vert0_offsets)")
         print("The offsets for the second corner are \(vert1_offsets)")
     }
-    let finalX: Double
-    if (vert0_offsets.0 != vert1_offsets.0) {
-        finalX = x + Double(vert0_offsets.0) * t0 + Double(vert1_offsets.0) * t1
+    let finalX = x + Double(vert0_offsets.0) + t0 * Double(vert1_offsets.0 - vert0_offsets.0)
         if homeworkMode {
             print("The X coordinate to interpolate between: \(x + Double(vert0_offsets.0)) (corner #\(v0)) to \(x + Double(vert1_offsets.0)) (corner #\(v1)).")
-            print("calc: \(x) + \(Double(vert0_offsets.0)) * \(t0) + \(Double(vert1_offsets.0)) * \(t1)")
-            print(" ->   \(x) + \(Double(vert0_offsets.0) * t0) + \(Double(vert1_offsets.0) * t1))")
-            print(" ->   \(x + Double(vert0_offsets.0) * t0) + \(Double(vert1_offsets.0) * t1))")
+            print("calc: \(x) + \(Double(vert0_offsets.0)) + \(t0) * (\(vert1_offsets.0)-\(vert0_offsets.0)")
+            print(" ->   \(x) + \(Double(vert0_offsets.0)) +  \(t0) * \(Double(vert1_offsets.0 - vert0_offsets.0))")
+            print(" ->   \(x) + \(Double(vert0_offsets.0)) +  \(t0 * Double(vert1_offsets.0 - vert0_offsets.0))")
             print("The chosen X position: \(finalX)")
         }
-    } else {
-        finalX = x + Double(vert0_offsets.0)
-        if homeworkMode {
-            print("Offsets for X coordinate of corner #\(v0) and #\(v1) are the same, so we use that offset (\(x) + \(vert0_offsets.0)) to choose \(finalX).")
-        }
-    }
-    
-    let finalY: Double
-    if (vert0_offsets.1 != vert1_offsets.1) {
-        finalY = y + Double(vert0_offsets.1) * t0 + Double(vert1_offsets.1) * t1
+
+    let finalY = y + Double(vert0_offsets.1) + t0 * Double(vert1_offsets.1 - vert0_offsets.1)
         if homeworkMode {
             print("The Y coordinate to interpolate between: \(y + Double(vert0_offsets.1)) (corner #\(v0)) to \(y + Double(vert1_offsets.1)) (corner #\(v1)).")
-            print("calc: \(y) + \(Double(vert0_offsets.1)) * \(t0) + \(Double(vert1_offsets.1)) * \(t1)")
-            print(" ->   \(y) + \(Double(vert0_offsets.1) * t0) + \(Double(vert1_offsets.1) * t1))")
-            print(" ->   \(y + Double(vert0_offsets.1) * t0) + \(Double(vert1_offsets.1) * t1))")
+            print("calc: \(y) + \(Double(vert0_offsets.1)) + \(t0) * (\(vert1_offsets.1)-\(vert0_offsets.1)")
+            print(" ->   \(y) + \(Double(vert0_offsets.1)) + \(t0) * \(Double(vert1_offsets.1 - vert0_offsets.1))")
+            print(" ->   \(y) + \(Double(vert0_offsets.1)) + \(t0 * Double(vert1_offsets.1 - vert0_offsets.1))")
             print("The chosen Y position: \(finalY)")
         }
-    } else {
-        finalY = y + Double(vert0_offsets.1)
-        if homeworkMode {
-            print("Offsets for Y coordinate of corner #\(v0) and #\(v1) are the same, so we use that offset (\(y) + \(vert0_offsets.1)) to choose \(finalY).")
-        }
-    }
     
-    let finalZ: Double
-    if (vert0_offsets.2 != vert1_offsets.2) {
-        finalZ = z + Double(vert0_offsets.2) * t0 + Double(vert1_offsets.2) * t1
+    let finalZ = z + Double(vert0_offsets.2) + t0 * Double(vert1_offsets.2 - vert0_offsets.2)
         if homeworkMode {
             print("The Z coordinate to interpolate between: \(z + Double(vert0_offsets.2)) (corner #\(v0)) to \(z + Double(vert1_offsets.2)) (corner #\(v1)).")
-            print("calc: \(z) + \(Double(vert0_offsets.2)) * \(t0) + \(Double(vert1_offsets.2)) * \(t1)")
-            print(" ->   \(z) + \(Double(vert0_offsets.2) * t0) + \(Double(vert1_offsets.2) * t1))")
-            print(" ->   \(z + Double(vert0_offsets.2) * t0) + \(Double(vert1_offsets.2) * t1))")
+            print("calc: \(z) + \(Double(vert0_offsets.2)) + \(t0) * (\(vert1_offsets.2)-\(vert0_offsets.2)")
+            print(" ->   \(z) + \(Double(vert0_offsets.2)) + \(t0) * \(Double(vert1_offsets.2 - vert0_offsets.2))")
+            print(" ->   \(z) + \(Double(vert0_offsets.2)) + \(t0 * Double(vert1_offsets.2 - vert0_offsets.2))")
             print("The chosen Z position: \(finalZ)")
         }
-    } else {
-        finalZ = z  + Double(vert0_offsets.2)
-        if homeworkMode {
-            print("Offsets for Z coordinate of corner #\(v0) and #\(v1) are the same, so we use that offset (\(z) + \(vert0_offsets.2)) to choose \(finalZ).")
-        }
-    }
+                
     return Vector(finalX, finalY, finalZ)
 }
