@@ -35,16 +35,14 @@ class MarchingCubesTests: XCTestCase {
     }
     
     func testVoxelEvaluation0_0_0() {
-        print(" = 0,0,0")
+        print(" =============== testVoxelEvaluation 0,0,0")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 0.0, material: UIColor.red)
+        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 0.0, material: UIColor.red, homeworkMode: true)
         XCTAssertEqual(x.polygons.count, 1)
-        print(" = " + x.summary)
-        // values at the corner locations
-        // [2.5, 1.5, 1.0857864376269049, 1.5, 1.5, 1.0857864376269049, 0.7679491924311228, 1.0857864376269049]
-        // edge set, corresponding to the active corners: ["✔", "✔", "✔", "✔", "✔", "✔", "✗", "✔"]
-        // faces: [[10, 6, 5]]
+        // print(" = " + x.summary)
+        print(" =============== testVoxelEvaluation 0,0,0")
     }
+    
     func testVoxelEvaluation0_0_1() {
         print(" = 0,0,1")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
