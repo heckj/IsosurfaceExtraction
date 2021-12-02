@@ -2,6 +2,7 @@
 //  settings.py
 //
 // sourced from https://github.com/BorisTheBrave/mc-dc/blob/master/settings.py
+// License CC0 (https://creativecommons.org/share-your-work/public-domain/cc0/)
 
 """Stores some global settings, mostly to save on a lot of repetitive arguments.
 These are mostly of interest for demonstrating different variants of the algorithms as discussed

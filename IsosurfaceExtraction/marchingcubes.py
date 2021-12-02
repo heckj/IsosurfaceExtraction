@@ -4,6 +4,7 @@
 //
 
 // Sourced from https://github.com/BorisTheBrave/mc-dc/blob/master/marching_cubes_3d.py
+// License CC0 (https://creativecommons.org/share-your-work/public-domain/cc0/)
 
 """Provides a function for performing 3D Marching Cubes"""
 

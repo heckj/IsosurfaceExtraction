@@ -438,7 +438,7 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
         // There's no effort in this algorithm to re-use vertices between the faces.
         let edges = face // ex: [10, 6, 5]
         let verts = edges.map { edgeIndex in
-            return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z, threshold: threshold)
+            return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z, threshold: threshold, adaptive: false)
         }
 //        print("verts identified by this face: \(verts.map({ $0.summary }))")
         if let poly = Polygon(verts, material: material) {
@@ -456,22 +456,25 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
 /// - Parameter y: The y coordinate location of the voxel being evaluated.
 /// - Parameter z: The z coordinate location of the voxel being evaluated.
 /// - Returns: a vector location interpolated between the corners for the face of the polygon
-public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double, y: Double, z: Double, threshold: Double) -> Vector {
+public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double, y: Double, z: Double, threshold: Double, adaptive: Bool = false) -> Vector {
     // Find the two vertices specified by this edge, and interpolate
     // between them to determine a vertex location.
     let v0 = voxel_edges[edge].0
     let v1 = voxel_edges[edge].1
     // ex. edge 10 matches to (2, 6) - so v0 -> corner 2, v1 -> corner 6
-    let f0 = cornerValues[v0]
-    let f1 = cornerValues[v1]
-    // We can do linear interpolation using the values from f0 and f1 to pick a better value, as those
-    // values *should* be on either side of the threshold value that determines our surface.
-    print("Values provided for the two corners are \(f0) and \(f1). Choosing interpolation value of 0.5")
-    let maybe = lerp(input0: f0 - threshold, input1: f1 - threshold, parameter: 0.5)
-    print("Lerp value at half-way: \(maybe)")
-    let t0 = 0.5
-    let t1 = 0.5
     
+    let t0: Double
+    let t1: Double
+    if adaptive {
+        let f0 = cornerValues[v0] - threshold
+        let f1 = cornerValues[v1] - threshold
+        t0 = (0 - f0) / (f1 - f0)
+        t1 = 1 - t0
+    } else {
+        t0 = 0.5
+        t1 = 0.5
+    }
+            
     let vert_pos0 = voxel_vertex_offsets[v0] // tuple of the corner - ex: corner 2 -> (1,1,0)
     let vert_pos1 = voxel_vertex_offsets[v1]
     return Vector(x + Double(vert_pos0.0) * t0 + Double(vert_pos1.0) * t1,

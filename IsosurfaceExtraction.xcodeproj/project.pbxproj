@@ -36,7 +36,6 @@
 		1A445F6127559A8D00561348 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A445F6427559A8D00561348 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1A445F6B27559AA900561348 /* MarchingCubes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarchingCubes.swift; sourceTree = "<group>"; };
-		1A445F6F27559ACB00561348 /* MarchingCubes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = MarchingCubes.js; sourceTree = "<group>"; };
 		1A445F7127559AEC00561348 /* marchingcubes.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = marchingcubes.py; sourceTree = "<group>"; };
 		1A445F7327559BB600561348 /* settings.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = settings.py; sourceTree = "<group>"; };
 		1A445F7527559BDD00561348 /* utils_3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utils_3d.py; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 				1A445F6B27559AA900561348 /* MarchingCubes.swift */,
 				1A7981F827559D8200D9484D /* Polygonise.h */,
 				1A7981F927559D8200D9484D /* Polygonise.c */,
-				1A445F6F27559ACB00561348 /* MarchingCubes.js */,
 				1A445F7127559AEC00561348 /* marchingcubes.py */,
 				1A445F7527559BDD00561348 /* utils_3d.py */,
 				1A445F7327559BB600561348 /* settings.py */,
