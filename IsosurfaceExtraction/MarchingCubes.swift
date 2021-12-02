@@ -315,9 +315,9 @@ public protocol IsoSurfaceDataSource {
 }
 
 public func marching_cubes(data: IsoSurfaceDataSource,
-                           xRange: ClosedRange<Double> = 0...10,
-                           yRange: ClosedRange<Double> = 0...10,
-                           zRange: ClosedRange<Double> = 0...10,
+                           xRange: ClosedRange<Double> = -3...3,
+                           yRange: ClosedRange<Double> = -3...3,
+                           zRange: ClosedRange<Double> = -3...3,
                            resolution: Double = 1,
                            material: Polygon.Material) -> Mesh {
     var combined_mesh = Mesh([])
@@ -396,6 +396,8 @@ extension Euclid.Vector {
 ///   - x: The x coordinate of the voxel to render.
 ///   - y: The y coordinate of the voxel to render.
 ///   - z: The z coordinate of the voxel to render.
+///   - material: The material to use when rendering the polygon
+/// - Returns: A mesh made up of the polygons for this voxel cell
 func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double, material: Polygon.Material) -> Mesh {
     let threshold = 1.0 // values over the threshold represent the interior of the surface
     
@@ -436,9 +438,9 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
         // There's no effort in this algorithm to re-use vertices between the faces.
         let edges = face // ex: [10, 6, 5]
         let verts = edges.map { edgeIndex in
-            return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z)
+            return edge_to_boundary_vertex(edge: edgeIndex, cornerValues: valuesAtCorners, x: x, y: y, z: z, threshold: threshold)
         }
-        print("verts identified by this face: \(verts.map({ $0.summary }))")
+//        print("verts identified by this face: \(verts.map({ $0.summary }))")
         if let poly = Polygon(verts, material: material) {
             print("polygon \(poly.summary)")
             output_tris.append(poly)
@@ -454,7 +456,7 @@ func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double
 /// - Parameter y: The y coordinate location of the voxel being evaluated.
 /// - Parameter z: The z coordinate location of the voxel being evaluated.
 /// - Returns: a vector location interpolated between the corners for the face of the polygon
-public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double, y: Double, z: Double) -> Vector {
+public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double, y: Double, z: Double, threshold: Double) -> Vector {
     // Find the two vertices specified by this edge, and interpolate
     // between them to determine a vertex location.
     let v0 = voxel_edges[edge].0
@@ -464,6 +466,9 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
     let f1 = cornerValues[v1]
     // We can do linear interpolation using the values from f0 and f1 to pick a better value, as those
     // values *should* be on either side of the threshold value that determines our surface.
+    print("Values provided for the two corners are \(f0) and \(f1). Choosing interpolation value of 0.5")
+    let maybe = lerp(input0: f0 - threshold, input1: f1 - threshold, parameter: 0.5)
+    print("Lerp value at half-way: \(maybe)")
     let t0 = 0.5
     let t1 = 0.5
     

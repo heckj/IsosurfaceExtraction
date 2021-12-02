@@ -37,19 +37,20 @@ class MarchingCubesTests: XCTestCase {
     func testVoxelEvaluation0_0_0() {
         print(" = 0,0,0")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        print(" = " + marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 0.0).summary)
-//        = 0,0,0
-//        [2.5, 1.5, 1.0857864376269049, 1.5, 1.5, 1.0857864376269049, 0.7679491924311228, 1.0857864376269049]
-//        ["✔", "✔", "✔", "✔", "✔", "✔", "✗", "✔"]
-//        faces: [[10, 6, 5]]
-//        verts identified by this face: [" [1.0,1.0,0.5] ", " [0.5,1.0,1.0] ", " [1.0,0.5,1.0] "]
-//        polygon vertices: 3 in X[0.5…1.0], Y[0.5…1.0], Y[0.5…1.0], convex? ✔
-//         = polys: 1 in X[0.5…1.0], Y[0.5…1.0], Y[0.5…1.0], watertight? ✗
+        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 0.0, material: UIColor.red)
+        XCTAssertEqual(x.polygons.count, 1)
+        print(" = " + x.summary)
+        // values at the corner locations
+        // [2.5, 1.5, 1.0857864376269049, 1.5, 1.5, 1.0857864376269049, 0.7679491924311228, 1.0857864376269049]
+        // edge set, corresponding to the active corners: ["✔", "✔", "✔", "✔", "✔", "✔", "✗", "✔"]
+        // faces: [[10, 6, 5]]
     }
     func testVoxelEvaluation0_0_1() {
         print(" = 0,0,1")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        print(" = " + marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 1.0).summary)
+        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 1.0, material: UIColor.red)
+        XCTAssertEqual(x.polygons.count, 3)
+        print(" = " + x.summary)
 //        = 0,0,1
 //       [1.5, 1.0857864376269049, 0.7679491924311228, 1.0857864376269049, 0.5, 0.2639320225002102, 0.05051025721682212, 0.2639320225002102]
 //       ["✔", "✔", "✗", "✔", "✗", "✗", "✗", "✗"]
@@ -66,7 +67,9 @@ class MarchingCubesTests: XCTestCase {
     func testVoxelEvaluation0_0_2() {
         print(" = 0,0,2")
         let sample: IsoSurfaceDataSource = IsosurfaceExtraction.exampleData()
-        print(" = " + marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 2.0).summary)
+        let x = marching_cubes_single_cell(data: sample, x: 0.0, y: 0.0, z: 2.0, material: UIColor.red)
+        XCTAssertEqual(x.polygons.count, 0)
+        print(" = " + x.summary)
 //        = 0,0,2
 //       [0.5, 0.2639320225002102, 0.05051025721682212, 0.2639320225002102, -0.5, -0.6622776601683795, -0.8166247903553998, -0.6622776601683795]
 //       ["✗", "✗", "✗", "✗", "✗", "✗", "✗", "✗"]
@@ -75,7 +78,7 @@ class MarchingCubesTests: XCTestCase {
     }
 
     func testWorkit() throws {
-        let mesh = marching_cubes(data: IsosurfaceExtraction.exampleData() as IsoSurfaceDataSource)
+        let mesh = marching_cubes(data: IsosurfaceExtraction.exampleData() as IsoSurfaceDataSource, material: UIColor.gray)
         print(mesh.summary)
     }
 
