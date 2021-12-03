@@ -320,75 +320,19 @@ public func marching_cubes(data: IsoSurfaceDataSource,
                            yRange: ClosedRange<Double> = -3...3,
                            zRange: ClosedRange<Double> = -3...3,
                            resolution: Double = 1,
+                           threshold: Double = 1.0,
                            material: Polygon.Material, adaptive: Bool = false) -> Mesh {
     var combined_mesh = Mesh([])
     for x in stride(from: xRange.lowerBound, through: xRange.upperBound, by: resolution) {
         for y in stride(from: yRange.lowerBound, through: yRange.upperBound, by: resolution) {
             for z in stride(from: zRange.lowerBound, through: zRange.upperBound, by: resolution) {
-                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z, material: material, adaptive: adaptive)
-                print("cell at \(x),\(y),\(z) : \(cell_mesh.summary)")
+                let cell_mesh = marching_cubes_single_cell(data: data, x: x, y: y, z: z, material: material, threshold: threshold, adaptive: adaptive)
+//                print("cell at \(x),\(y),\(z) : \(cell_mesh.summary)")
                 combined_mesh = combined_mesh.merge(cell_mesh)
             }
         }
     }
     return combined_mesh
-}
-
-/// Converts a boolean value into a checkmark or cross-out symbol for a compact text representation.
-/// - Parameter value: the value to be compared
-/// - Returns: a string with a value of ✔ if true; otherwise ✗
-public func check(_ value: Bool) -> String {
-    value ? "✔" : "✗"
-}
-
-extension Euclid.Bounds {
-    
-    /// Returns a summary description of the bounds in textual form.
-    ///
-    /// For example, a default Bounds instance has infinite bounds:
-    /// ```
-    /// let example = Bounds()
-    /// bounds.summary
-    /// // X[inf…-inf], Y[inf…-inf], Y[inf…-inf]
-    /// ```
-    var summary: String {
-        get {
-            return "X[\(self.min.x)…\(self.max.x)], Y[\(self.min.y)…\(self.max.y)], Y[\(self.min.z)…\(self.max.z)]"
-        }
-    }
-}
-
-extension Euclid.Mesh {
-    
-    /// Returns a summary description of the bounds in textual form.
-    ///
-    /// For example, a default Bounds instance has infinite bounds:
-    /// ```
-    /// let example = Mesh([])
-    /// example.summary
-    /// // X[inf…-inf], Y[inf…-inf], Y[inf…-inf]
-    /// ```
-    var summary: String {
-        get {
-            "polys: \(self.polygons.count) in \(self.bounds.summary), watertight? \(check(self.isWatertight))"
-        }
-    }
-}
-
-extension Euclid.Polygon {
-    var summary: String {
-        get {
-            "vertices: \(self.vertices.count) in \(self.bounds.summary), convex? \(check(self.isConvex))"
-        }
-    }
-}
-
-extension Euclid.Vector {
-    var summary: String {
-        get {
-            " [\(self.x),\(self.y),\(self.z)] "
-        }
-    }
 }
 
 /// Generates the data for a 3D mesh representation for a single voxel.
@@ -398,10 +342,11 @@ extension Euclid.Vector {
 ///   - y: The y coordinate of the voxel to render.
 ///   - z: The z coordinate of the voxel to render.
 ///   - material: The material to use when rendering the polygon
+///   - threshold: The value that determines if a point in the field is inside, or outside, the surface.
+///   - adaptive: If true, uses linear interpolation to determine vertex locations closer to the threshold level; otherwise, is chooses a point between the two edges of the voxel cube.
 ///   - homeworkMode: If true, enables detailed print statements showing the calculations and logic for the choice of locations for the polygon(s).
 /// - Returns: A mesh made up of the polygons for this voxel cell
-func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double, material: Polygon.Material, adaptive: Bool = false, homeworkMode: Bool = false) -> Mesh {
-    let threshold = 1.0 // values over the threshold represent the interior of the surface
+func marching_cubes_single_cell(data: IsoSurfaceDataSource, x: Double, y: Double, z: Double, material: Polygon.Material, threshold: Double = 1.0, adaptive: Bool = false, homeworkMode: Bool = false) -> Mesh {
     
     // iterate through the corners of the voxel, and get the data value from each of those locations.
     let valuesAtCorners = voxel_vertex_offsets.map { (x_offset: Int, y_offset: Int, z_offset: Int) in

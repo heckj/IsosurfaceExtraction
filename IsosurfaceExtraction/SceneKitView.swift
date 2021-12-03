@@ -9,7 +9,7 @@ import SwiftUI
 import SceneKit
 import Euclid
 
-struct ContentView: View {
+struct SceneKitView: View {
     var scene: SCNScene
             
     var cameraNode: SCNNode? {
@@ -17,21 +17,18 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("My SceneKit View")
-            SceneView(
-                    scene: scene,
-                    pointOfView: cameraNode,
-                    options: [.allowsCameraControl, .autoenablesDefaultLighting]
-            )
-            // These don't appear to be exposed into SwiftUI view land...
-            //    scnView.showsStatistics = true
-            //    scnView.backgroundColor = .white
-        }
+        SceneView(
+                scene: scene,
+                pointOfView: cameraNode,
+                options: [.allowsCameraControl, .autoenablesDefaultLighting]
+        )
+        // These don't appear to be exposed into SwiftUI view land...
+        //    scnView.showsStatistics = true
+        //    scnView.backgroundColor = .white
     }
 }
 
-func provideMarchingCubesScene() -> SCNScene {
+func provideMarchingCubesScene(adaptive: Bool = false, threshold: Double = 1.0) -> SCNScene {
     // create a new scene
     let scene = SCNScene()
 
@@ -42,14 +39,15 @@ func provideMarchingCubesScene() -> SCNScene {
     scene.rootNode.addChildNode(cameraNode)
 
     // place the camera
-    cameraNode.position = SCNVector3(x: 0, y: 0, z: 3)
+    cameraNode.position = SCNVector3(x: 0, y: 0, z: 6)
 
     // create some geometry using Euclid
     let start = CFAbsoluteTimeGetCurrent()
     let mesh = marching_cubes(
         data: IsosurfaceExtraction.exampleData() as IsoSurfaceDataSource,
+        threshold: threshold,
         material: UIColor.green,
-        adaptive: true)
+        adaptive: adaptive)
     print("Time:", CFAbsoluteTimeGetCurrent() - start)
     print("Polys:", mesh.polygons.count)
 
@@ -90,8 +88,8 @@ func provideEuclidScene() -> SCNScene {
     return scene
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SceneKitView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(scene: provideEuclidScene())
+        SceneKitView(scene: provideEuclidScene())
     }
 }
