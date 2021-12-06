@@ -51,6 +51,9 @@
 		1A7981F727559D8200D9484D /* IsosurfaceExtraction-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IsosurfaceExtraction-Bridging-Header.h"; sourceTree = "<group>"; };
 		1A7981F827559D8200D9484D /* Polygonise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Polygonise.h; sourceTree = "<group>"; };
 		1A7981F927559D8200D9484D /* Polygonise.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Polygonise.c; sourceTree = "<group>"; };
+		1AE7E992275EC6750098990B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1AE7E993275EC6C90098990B /* dual_contour_3d.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dual_contour_3d.py; sourceTree = "<group>"; };
+		1AE7E994275EC6EF0098990B /* qef.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = qef.py; sourceTree = "<group>"; };
 		1AEC99102759A1D10056D5E8 /* MarchingCubesControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarchingCubesControlView.swift; sourceTree = "<group>"; };
 		1AEC99122759A5CF0056D5E8 /* Euclid+Summary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Euclid+Summary.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +107,7 @@
 		1A445F5C27559A8C00561348 /* IsosurfaceExtraction */ = {
 			isa = PBXGroup;
 			children = (
+				1AE7E992275EC6750098990B /* Info.plist */,
 				1A445F5D27559A8C00561348 /* IsosurfaceExtractionApp.swift */,
 				1AEC99102759A1D10056D5E8 /* MarchingCubesControlView.swift */,
 				1A445F5F27559A8C00561348 /* SceneKitView.swift */,
@@ -120,6 +124,8 @@
 				1A445F6127559A8D00561348 /* Assets.xcassets */,
 				1A445F6327559A8D00561348 /* Preview Content */,
 				1A7981F727559D8200D9484D /* IsosurfaceExtraction-Bridging-Header.h */,
+				1AE7E993275EC6C90098990B /* dual_contour_3d.py */,
+				1AE7E994275EC6EF0098990B /* qef.py */,
 			);
 			path = IsosurfaceExtraction;
 			sourceTree = "<group>";
@@ -444,6 +450,7 @@
 				DEVELOPMENT_TEAM = BDV4VC27D3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IsosurfaceExtraction/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -476,6 +483,7 @@
 				DEVELOPMENT_TEAM = BDV4VC27D3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IsosurfaceExtraction/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
