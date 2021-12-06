@@ -1,26 +1,6 @@
 import Foundation
 import Euclid
 
-/// Linear Interpolation of Double values.
-///
-/// Precise method, which guarantees v = v1 when t = 1. This method is monotonic only when `v0 * v1 < 0`.
-/// Linear interpolation between same values might not produce the same value.
-/// Sourced from https://en.wikipedia.org/wiki/Linear_interpolation.
-/// - Parameters:
-///   - v0: The first boundary value for the interpolation.
-///   - v1: The second boundary value for the interpolation.
-///   - t: A value between `0` and `1.0` to use to produce an interpolated value.
-/// - Returns: The interpolated value at the position provided between two boundary values.
-public func lerp(input0 v0: Double, input1 v1: Double, parameter t: Double) -> Double {
-    return (1 - t) * v0 + t * v1
-}
-
-struct exampleData: IsoSurfaceDataSource {
-    func isovalue(x: Double, y: Double, z: Double) -> Double {
-        return 2.5 - sqrt(x*x + y*y + z*z)
-    }
-}
-
 let voxel_vertex_offsets = [
     (0, 0, 0),
     (1, 0, 0),
@@ -310,11 +290,6 @@ let cases = [[],
              [[3, 0, 8]],
              []]
 
-/// A protocol that provides a consistent interface to retrieve density values for isosurface extraction.
-public protocol IsoSurfaceDataSource {
-    func isovalue(x: Double, y: Double, z:Double) -> Double;
-}
-
 public func marching_cubes(data: IsoSurfaceDataSource,
                            xRange: ClosedRange<Double> = -3...3,
                            yRange: ClosedRange<Double> = -3...3,
@@ -420,13 +395,10 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
     // v0 and v1 are identifying the corner indexes of the edge
     // that we're trying to interpolate.
     
-    // If 'adaptive' is set to true, then we interpolate a vertex position on the edge provided that most closely matches the isovalue's threshold.
-    // Otherwise, we pick a quick-n-dirty point that's exactly
-    // halfway between the vertex positions.
-    // In either case, t0 and t1 are the unit-measure offsets
-    // for the vertex positions.
+    // If 'adaptive' is true, interpolate a vertex position on the edge provided that most closely matches the isovalue's threshold.
+    // Otherwise, we pick a quick-n-dirty point that's exactly halfway between the vertex positions.
+    // In either case, t0 and t1 are the unit-measure offsets for the vertex positions.
     let t0: Double
-//    let t1: Double
     if adaptive {
         if homeworkMode {
             print("Adaptive mode enabled: calculating interpolation")
@@ -440,8 +412,8 @@ public func edge_to_boundary_vertex(edge: Int, cornerValues: [Double], x: Double
         // are expected to be on opposite sides of '0' - one positive,
         // one negative.
         let verifiedOppositeSigns = (f0 > 0) != (f1 > 0)
-        precondition(verifiedOppositeSigns, "The isovalues being interpolated (\(f0), and \(f1) aren't opposite signs. The original values from the field are \(cornerValues[v0]) and \(cornerValues[v1]), and the threshold value \(threshold).")
-        t0 = (0 - f0) / (f1 - f0)
+        precondition(verifiedOppositeSigns, "The isovalues being interpolated (\(f0), and \(f1) aren't opposite signs. The original values from the field are \(cornerValues[v0]) and \(cornerValues[v1]), and the threshold value \(threshold).")        
+        t0 = normalizedOffset(f0, f1)
         if homeworkMode {
             print("first corner index #\(v0), second corner index #\(v1).")
             print("The isofield values at the corners are \(f0) and \(f1)")
